@@ -1,0 +1,432 @@
+:host {
+  --pine: #182820;
+  --paper: #f3e8d2;
+  --paper-muted: #c7bba1;
+  --copper: #d58b53;
+  --moss: #9eaa78;
+  display: block;
+  min-height: 100%;
+  color: var(--paper);
+  font-family: 'Avenir Next', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tavern-page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--pine);
+}
+
+.tavern-page::before,
+.tavern-page::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: '';
+}
+
+.tavern-page::before {
+  z-index: -2;
+  background-image: url('/tavern-shelter.jpg');
+  background-position: center 58%;
+  background-size: cover;
+  filter: saturate(0.68);
+  transform: scale(1.015);
+}
+
+.tavern-page::after {
+  background-color: rgb(19 31 24 / 78%);
+}
+
+.page-frame {
+  display: flex;
+  width: min(1240px, calc(100% - 96px));
+  min-height: 100svh;
+  margin-inline: auto;
+  flex-direction: column;
+}
+
+.masthead {
+  display: flex;
+  min-height: 104px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(243 232 210 / 22%);
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand-initials {
+  display: grid;
+  width: 48px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid var(--copper);
+  border-radius: 50%;
+  color: var(--paper);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 20px;
+}
+
+.brand-initials span {
+  margin-left: -3px;
+  color: var(--copper);
+}
+
+.brand-copy {
+  display: grid;
+  gap: 3px;
+}
+
+.brand-name {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 21px;
+}
+
+.brand-caption,
+.masthead-note,
+.eyebrow,
+.crest-caption,
+.footer-mark {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.brand-caption {
+  color: var(--paper-muted);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: none;
+}
+
+.masthead-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--paper-muted);
+}
+
+.lamp-dot,
+.footer-mark i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--copper);
+  box-shadow: 0 0 14px rgb(213 139 83 / 65%);
+}
+
+.welcome {
+  display: grid;
+  min-height: 610px;
+  flex: 1;
+  align-items: center;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
+  gap: 48px;
+  padding-block: 36px;
+}
+
+.welcome-copy {
+  max-width: 650px;
+  animation: arrive 700ms ease-out both;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 26px;
+  color: var(--moss);
+}
+
+.eyebrow-line {
+  width: 34px;
+  height: 1px;
+  background: var(--copper);
+}
+
+h1 {
+  display: grid;
+  margin: 0;
+  color: var(--paper);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 96px;
+  font-weight: 400;
+  line-height: 0.91;
+}
+
+.title-accent {
+  color: var(--copper);
+  font-size: 76px;
+  font-style: italic;
+}
+
+.welcome-text {
+  max-width: 490px;
+  margin: 30px 0 0;
+  color: var(--paper-muted);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.welcome-rule {
+  display: flex;
+  width: 188px;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+  color: var(--copper);
+}
+
+.welcome-rule span:not(.rule-star) {
+  height: 1px;
+  flex: 1;
+  background: rgb(213 139 83 / 54%);
+}
+
+.rule-star {
+  font-size: 12px;
+}
+
+.welcome-signoff {
+  margin: 16px 0 0;
+  color: var(--paper);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.crest-wrap {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  animation: arrive 850ms 120ms ease-out both;
+}
+
+.tavern-crest {
+  display: block;
+  width: min(100%, 390px);
+  overflow: visible;
+}
+
+.crest-ring {
+  fill: rgb(24 40 32 / 34%);
+  stroke: var(--copper);
+}
+
+.crest-ring-outer {
+  stroke-width: 1.4;
+}
+
+.crest-ring-inner {
+  fill: none;
+  stroke-width: 0.7;
+}
+
+.crest-roof,
+.crest-mountain {
+  fill: none;
+  stroke: var(--paper);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.crest-roof {
+  stroke: var(--copper);
+  stroke-width: 3;
+}
+
+.crest-mountain {
+  stroke-width: 2.5;
+}
+
+.crest-mountain-detail,
+.crest-ground {
+  fill: none;
+  stroke: var(--moss);
+  stroke-linecap: round;
+  stroke-width: 1.5;
+}
+
+.crest-wheel {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 2.2;
+}
+
+.crest-bike {
+  fill: none;
+  stroke: var(--copper);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+
+.crest-inscription {
+  fill: var(--paper-muted);
+  font-family: 'Avenir Next', 'Segoe UI', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.crest-star {
+  fill: var(--copper);
+}
+
+.crest-caption {
+  color: var(--paper-muted);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.trail-footer {
+  display: flex;
+  min-height: 76px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid rgb(243 232 210 / 22%);
+  color: var(--paper-muted);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 14px;
+}
+
+.footer-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--paper);
+  font-family: 'Avenir Next', 'Segoe UI', sans-serif;
+  font-size: 10px;
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 760px) {
+  .page-frame {
+    width: calc(100% - 40px);
+  }
+
+  .masthead {
+    min-height: 84px;
+  }
+
+  .masthead-note {
+    font-size: 9px;
+  }
+
+  .welcome {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-block: 48px 34px;
+  }
+
+  .welcome-copy {
+    max-width: 540px;
+  }
+
+  h1 {
+    font-size: 72px;
+  }
+
+  .title-accent {
+    font-size: 58px;
+  }
+
+  .welcome-text {
+    max-width: 440px;
+    font-size: 16px;
+  }
+
+  .crest-wrap {
+    grid-template-columns: 170px 1fr;
+    align-items: center;
+    justify-items: start;
+  }
+
+  .tavern-crest {
+    width: 170px;
+  }
+}
+
+@media (max-width: 430px) {
+  .masthead-note {
+    max-width: 105px;
+    text-align: right;
+  }
+
+  .brand-lockup {
+    gap: 9px;
+  }
+
+  .brand-initials {
+    width: 42px;
+    font-size: 18px;
+  }
+
+  .brand-name {
+    font-size: 18px;
+  }
+
+  h1 {
+    font-size: 60px;
+  }
+
+  .title-accent {
+    font-size: 50px;
+  }
+
+  .crest-wrap {
+    grid-template-columns: 138px 1fr;
+    gap: 10px;
+  }
+
+  .tavern-crest {
+    width: 138px;
+  }
+
+  .crest-caption {
+    font-size: 12px;
+  }
+
+  .trail-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    padding-block: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
