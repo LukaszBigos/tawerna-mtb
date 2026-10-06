@@ -430,3 +430,17 @@ h1 {
     scroll-behavior: auto !important;
   }
 }
+
+.sidebar-forest-bg {
+  background-image:
+    linear-gradient(to bottom, rgba(26, 31, 29, 0.95), rgba(9, 12, 11, 0.98)),
+    url('https://unsplash.com');
+  background-size: cover;
+  background-position: center;
+}
+
+body,
+.tavern-page {
+  background-color: #0c0f0e !important;
+  color: #f5f5f5;
+}
