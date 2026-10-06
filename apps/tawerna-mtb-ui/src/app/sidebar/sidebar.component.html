@@ -1,0 +1,142 @@
+@if (!isOpen()) {
+  <button
+    (click)="toggleRequested.emit()"
+    class="fixed top-5 left-5 z-[999] flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-lg border border-emerald-700/20 bg-emerald-950/70 backdrop-blur-md p-2.5 cursor-pointer focus:outline-none"
+    aria-label="Toggle menu"
+  >
+    <span class="block h-0.5 w-6 bg-zinc-100"></span>
+    <span class="block h-0.5 w-6 bg-zinc-100"></span>
+    <span class="block h-0.5 w-6 bg-zinc-100"></span>
+  </button>
+}
+
+<aside
+  class="fixed top-0 left-0 z-40 flex h-screen w-72 flex-col justify-between p-8 transition-transform duration-300 ease-in-out -translate-x-full overflow-hidden"
+  [class.translate-x-0]="isOpen()"
+  style="
+    background: linear-gradient(
+      180deg,
+      rgba(14, 32, 23, 0.94) 0%,
+      rgba(22, 46, 33, 0.88) 45%,
+      rgba(8, 18, 13, 0.99) 100%
+    );
+    backdrop-filter: blur(28px) saturate(0.65);
+    -webkit-backdrop-filter: blur(28px) saturate(0.65);
+    box-shadow:
+      inset -1px 0 0 rgba(160, 200, 180, 0.05),
+      0 0 32px rgba(5, 15, 10, 0.4);
+  "
+>
+  <div class="absolute inset-0 z-0 pointer-events-none select-none">
+    <svg
+      class="w-full h-full"
+      viewBox="0 0 280 800"
+      preserveAspectRatio="none"
+      xmlns="http://w3.org"
+    >
+      <defs>
+        <filter id="softBlur" x="-10%" y="-10%" width="120%" height="120%">
+          <feGaussianBlur stdDeviation="2" />
+        </filter>
+        <linearGradient id="pastelFog" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#224235" stop-opacity="0.15" />
+          <stop offset="50%" stop-color="#2d5244" stop-opacity="0.25" />
+          <stop offset="80%" stop-color="#142c20" stop-opacity="0.4" />
+          <stop offset="100%" stop-color="#060f0a" stop-opacity="0.95" />
+        </linearGradient>
+      </defs>
+
+      <rect width="280" height="800" fill="#0d1f16" />
+      <rect width="280" height="800" fill="url(#pastelFog)" />
+
+      <g opacity="0.55" filter="url(#softBlur)">
+        <path
+          d="M0 640 L16 595 L22 615 L45 565 L52 590 L78 535 L90 580 L115 520 L132 570 L152 545 L178 510 L190 560 L212 530 L235 575 L250 515 L268 555 L280 525 L280 800 L0 800 Z"
+          fill="#0c2619"
+        />
+        <path
+          d="M0 685 L10 655 L25 670 L48 610 L62 645 L80 625 L102 650 L125 590 L140 635 L162 615 L182 640 L205 580 L222 625 L240 600 L258 635 L272 610 L280 645 L280 800 L0 800 Z"
+          fill="#091d12"
+        />
+      </g>
+
+      <g opacity="0.95">
+        <path
+          d="M0 725 L14 675 L22 698 L38 640 L45 680 L68 625 L75 660 L98 610 L110 655 L132 595 L148 640 L165 615 L188 660 L198 630 L225 675 L238 620 L255 665 L268 635 L280 670 L280 800 L0 800 Z"
+          fill="#061a0f"
+        />
+        <path
+          d="M0 765 L18 710 L28 735 L52 680 L68 720 L92 655 L110 705 L135 645 L152 690 L175 660 L198 715 L215 675 L238 720 L252 685 L268 730 L280 695 L280 800 L0 800 Z"
+          fill="#030f0a"
+        />
+      </g>
+    </svg>
+  </div>
+
+  <div class="relative z-10 flex flex-col h-full justify-between w-full">
+    <div class="flex items-center gap-4 border-b border-emerald-500/10 pb-6">
+      <div
+        class="flex flex-col items-center justify-center rounded-[6px] border border-emerald-400/20 px-2.5 py-1.5 font-serif font-bold text-emerald-300 leading-none bg-emerald-950/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
+      >
+        <span>T</span>
+        <span>M</span>
+      </div>
+      <div>
+        <h2
+          class="font-medium tracking-wide text-zinc-100/90 text-xl m-0 drop-shadow-[0_1px_0_rgba(0,0,0,0.4)]"
+        >
+          Tawerna MTB
+        </h2>
+        <p class="text-xs text-emerald-400 mt-1 m-0">Przystań po dobrym zjeździe</p>
+      </div>
+    </div>
+
+    <nav class="flex-grow mt-10">
+      <ul class="flex flex-col gap-3 list-none p-0 m-0">
+        <li>
+          <a
+            href="#map-section"
+            class="flex items-center gap-4 rounded-xl bg-emerald-500/10 px-4 py-3 text-zinc-50 font-medium text-sm transition-all duration-200"
+            (click)="closeRequested.emit()"
+          >
+            <span class="text-lg opacity-90">🗺️</span>
+            <span>Mapa Miejscówek</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="#home-section"
+            class="flex items-center gap-4 rounded-lg px-4 py-3 text-zinc-300 border-l-3 border-transparent text-sm font-normal hover:bg-emerald-500/15 hover:text-zinc-50 transition-all duration-200"
+            (click)="closeRequested.emit()"
+          >
+            <span class="text-lg opacity-80">🏠</span>
+            <span>Strona Główna</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="#trails-section"
+            class="flex items-center gap-4 rounded-lg px-4 py-3 text-zinc-300 border-l-3 border-transparent text-sm font-normal hover:bg-emerald-500/15 hover:text-zinc-50 transition-all duration-200"
+            (click)="closeRequested.emit()"
+          >
+            <span class="text-lg opacity-80">🚲</span>
+            <span>Trasy i Szlaki</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="border-t border-emerald-500/10 pt-6">
+      <span
+        class="text-xs font-bold tracking-widest text-emerald-400 block drop-shadow-[0_1px_0_rgba(0,0,0,0.3)]"
+        >● BESKIDY · POLSKA</span
+      >
+    </div>
+  </div>
+</aside>
+
+<div
+  [class.hidden]="!isOpen()"
+  (click)="closeRequested.emit()"
+  class="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm transition-opacity duration-300 cursor-pointer"
+></div>
