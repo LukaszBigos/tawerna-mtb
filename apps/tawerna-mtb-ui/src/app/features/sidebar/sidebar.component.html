@@ -1,7 +1,7 @@
 @if (!isOpen()) {
   <button
     (click)="toggleRequested.emit()"
-    class="fixed top-5 left-5 z-[999] flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-lg border border-emerald-700/20 bg-emerald-950/70 backdrop-blur-md p-2.5 cursor-pointer focus:outline-none"
+    class="fixed top-5 left-5 z-999 flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-lg border border-emerald-700/20 bg-emerald-950/70 backdrop-blur-md p-2.5 cursor-pointer focus:outline-none"
     aria-label="Toggle menu"
   >
     <span class="block h-0.5 w-6 bg-zinc-100"></span>
@@ -76,7 +76,7 @@
   <div class="relative z-10 flex flex-col h-full justify-between w-full">
     <div class="flex items-center gap-4 border-b border-emerald-500/10 pb-6">
       <div
-        class="flex flex-col items-center justify-center rounded-[6px] border border-emerald-400/20 px-2.5 py-1.5 font-serif font-bold text-emerald-300 leading-none bg-emerald-950/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
+        class="flex flex-col items-center justify-center rounded-md border border-emerald-400/20 px-2.5 py-1.5 font-serif font-bold text-emerald-300 leading-none bg-emerald-950/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
       >
         <span>T</span>
         <span>M</span>
@@ -91,7 +91,7 @@
       </div>
     </div>
 
-    <nav class="flex-grow mt-10">
+    <nav class="grow mt-10">
       <ul class="flex flex-col gap-3 list-none p-0 m-0">
         <li>
           <a
@@ -135,8 +135,11 @@
   </div>
 </aside>
 
-<div
-  [class.hidden]="!isOpen()"
-  (click)="closeRequested.emit()"
-  class="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm transition-opacity duration-300 cursor-pointer"
-></div>
+@if (isOpen()) {
+  <button
+    type="button"
+    (click)="closeRequested.emit()"
+    aria-label="Zamknij menu"
+    class="fixed inset-0 z-30 cursor-pointer border-0 bg-black/50 p-0 backdrop-blur-sm"
+  ></button>
+}

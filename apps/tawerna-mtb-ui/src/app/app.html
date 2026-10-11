@@ -6,7 +6,7 @@
 
 <main class="tavern-page relative min-h-screen">
   <div class="page-frame lg:ml-72 transition-all duration-300">
-    <section class="welcome" aria-labelledby="welcome-title">
+    <section id="home-section" class="welcome" aria-labelledby="welcome-title">
       <div class="welcome-copy">
         <p class="eyebrow">
           <span class="eyebrow-line" aria-hidden="true"></span
@@ -54,12 +54,29 @@
         ><i aria-hidden="true"></i><span i18n>Zjazd · Ognisko · Powtórka</span></span
       >
     </footer>
-  </div>
 
-  @if (isSidebarOpen()) {
-    <div
-      (click)="closeSidebar()"
-      class="fixed inset-0 z-30 bg-black/50 backdrop-blur-md lg:hidden transition-opacity duration-300 cursor-pointer"
-    ></div>
-  }
+    <section id="map-section" class="map-section" aria-labelledby="map-title">
+      <div class="map-heading">
+        <div>
+          <p class="eyebrow">
+            <span class="eyebrow-line" aria-hidden="true"></span> Beskidzkie miejscówki
+          </p>
+          <h2 id="map-title">Mapa szlaków</h2>
+        </div>
+        <p class="map-description">Odkryj miejsca i trasy polecane przez lokalnych riderów.</p>
+      </div>
+      <div class="map-frame">
+        <app-map
+          [locations]="locationService.locations()"
+          [isSidebarOpen]="isSidebarOpen()"
+        ></app-map>
+        @if (locationService.isLoading()) {
+          <div class="map-status" role="status">Ładowanie miejscówek…</div>
+        }
+        @if (locationService.error()) {
+          <div class="map-status map-error" role="alert">{{ locationService.error() }}</div>
+        }
+      </div>
+    </section>
+  </div>
 </main>
