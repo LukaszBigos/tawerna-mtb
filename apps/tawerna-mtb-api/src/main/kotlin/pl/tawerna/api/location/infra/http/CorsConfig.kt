@@ -12,12 +12,14 @@ class CorsConfig {
     fun corsConfigurer(): WebMvcConfigurer {
         return object : WebMvcConfigurer {
             override fun addCorsMappings(registry: CorsRegistry) {
-                // Allow our local Angular application to access all API endpoints
                 registry.addMapping("/api/v1/**")
-                    .allowedOrigins("http://localhost:4200")
-                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                    .allowedOrigins(
+                        "http://localhost:4200",
+                        "http://127.0.0.1:4200"
+                    )
+                    .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                     .allowedHeaders("*")
-                    .allowCredentials(true)
+                    .allowCredentials(false)
             }
         }
     }

@@ -53,6 +53,14 @@ VALUES
 -- ==========================================
 
 -- ==========================================
+UPDATE bike_parks
+SET image_url = CASE type
+	WHEN 'BIKE_PARK' THEN 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=960&q=80'
+	WHEN 'TRAIL_CENTER' THEN 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=960&q=80'
+	WHEN 'MOUNTAIN_TRAIL' THEN 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=960&q=80'
+	ELSE image_url
+END;
+
 -- 4. INSERT TRAILS FOR LOCATIONS (ID: 1-30)
 -- ==========================================
 -- Kasina

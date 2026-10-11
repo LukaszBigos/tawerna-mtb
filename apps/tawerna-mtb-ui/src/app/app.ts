@@ -1,22 +1,28 @@
-import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { Component, inject, signal } from '@angular/core';
+import { LocationService } from './core/services/location.service';
+import { MapComponent } from './features/dashboard/map.component';
+import { SidebarComponent } from './features/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, SidebarComponent],
+  imports: [MapComponent, SidebarComponent],
   templateUrl: './app.html',
-  styleUrls: ['./app.css'],
+  styleUrl: './app.css',
 })
 export class AppComponent {
-  isSidebarOpen = signal<boolean>(false);
+  protected readonly locationService = inject(LocationService);
+  public readonly isSidebarOpen = signal(false);
 
-  toggleSidebar(): void {
+  constructor() {
+    this.locationService.loadLocations();
+  }
+
+  public toggleSidebar(): void {
     this.isSidebarOpen.update((state) => !state);
   }
 
-  closeSidebar(): void {
+  public closeSidebar(): void {
     this.isSidebarOpen.set(false);
   }
 }
