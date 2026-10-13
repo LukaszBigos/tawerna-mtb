@@ -1,7 +1,11 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { finalize } from 'rxjs';
-import { Location } from '../../shared/models/location.model';
+import { Observable, finalize, tap } from 'rxjs';
+import {
+  CreateLocationRequest,
+  CreateTrailRequest,
+  Location,
+} from '../../shared/models/location.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +27,30 @@ export class LocationService {
       .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe({
         next: (locations) => this.locations.set(locations),
-        error: () => this.error.set('Nie udało się załadować miejscówek.'),
+        error: () => this.error.set('errors.loadLocations'),
       });
+  }
+
+  public createLocation(request: CreateLocationRequest): Observable<Location> {
+    this.error.set(null);
+    return this.http
+      .post<Location>('http://localhost:8080/api/v1/locations', request)
+      .pipe(tap((location) => this.locations.update((locations) => [...locations, location])));
+  }
+
+  public createTrail(locationId: number, request: CreateTrailRequest): Observable<Location> {
+    this.error.set(null);
+    return this.http
+      .post<Location>(`http://localhost:8080/api/v1/locations/${locationId}/trails`, request)
+      .pipe(
+        tap((updatedLocation) =>
+          this.locations.update((locations) =>
+            locations.map((location) =>
+              location.id === updatedLocation.id ? updatedLocation : location,
+            ),
+          ),
+        ),
+      );
   }
 
   public selectLocation(location: Location): void {

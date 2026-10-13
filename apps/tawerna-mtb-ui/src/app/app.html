@@ -2,31 +2,67 @@
   [isOpen]="isSidebarOpen()"
   (toggleRequested)="toggleSidebar()"
   (closeRequested)="closeSidebar()"
+  (addRequested)="openAddDialog()"
 ></app-sidebar>
+
+@defer (when isAddDialogOpen()) {
+  <app-add-entry-dialog
+    [isOpen]="isAddDialogOpen()"
+    [locations]="locationService.locations()"
+    (closeRequested)="closeAddDialog()"
+  ></app-add-entry-dialog>
+}
 
 <main class="tavern-page relative min-h-screen">
   <div class="page-frame lg:ml-72 transition-all duration-300">
+    <header class="masthead">
+      <a class="brand-lockup" href="#home-section" [attr.aria-label]="'brand.name' | translate">
+        <span class="brand-initials" aria-hidden="true">T<span>M</span></span>
+        <span class="brand-copy">
+          <span class="brand-name">{{ 'brand.name' | translate }}</span>
+          <span class="brand-caption">{{ 'sidebar.tagline' | translate }}</span>
+        </span>
+      </a>
+      <div class="language-switcher" role="group" [attr.aria-label]="'language.label' | translate">
+        @for (language of languages; track language.code) {
+          <button
+            type="button"
+            class="language-option"
+            [class.is-active]="(translate.currentLang() ?? 'pl') === language.code"
+            [attr.aria-label]="language.label"
+            [title]="language.label"
+            (click)="setLanguage(language.code)"
+          >
+            <span aria-hidden="true">{{ language.flag }}</span>
+          </button>
+        }
+      </div>
+    </header>
+
     <section id="home-section" class="welcome" aria-labelledby="welcome-title">
       <div class="welcome-copy">
         <p class="eyebrow">
           <span class="eyebrow-line" aria-hidden="true"></span
-          ><span i18n>Miejsce dla ludzi szlaku</span>
+          ><span>{{ 'home.eyebrow' | translate }}</span>
         </p>
-        <h1 id="welcome-title" i18n>Tawerna <span class="title-accent">MTB</span></h1>
-        <p class="welcome-text" i18n>
-          Najpierw ścieżka pod kołami. Potem ciepłe światło, wspólny stół i historie z trasy.
+        <h1 id="welcome-title">
+          {{ 'home.title' | translate }}
+          <span class="title-accent">{{ 'home.titleAccent' | translate }}</span>
+        </h1>
+        <p class="welcome-text">
+          {{ 'home.description' | translate }}
         </p>
         <div class="welcome-rule" aria-hidden="true">
           <span></span><span class="rule-star">✦</span><span></span>
         </div>
-        <p class="welcome-signoff" i18n>
-          Tu kończy się zjazd.<br />Dobra opowieść dopiero się zaczyna.
+        <p class="welcome-signoff">
+          {{ 'home.signoffFirst' | translate }}<br />{{ 'home.signoffSecond' | translate }}
         </p>
       </div>
 
       <div class="crest-wrap">
         <svg class="tavern-crest" viewBox="0 0 400 400" role="img" aria-labelledby="crest-title">
-          <title id="crest-title" i18n>Emblemat Tawerny MTB z górskim szlakiem i rowerem</title>
+          <title id="crest-title">{{ 'home.crestTitle' | translate }}</title>
           <circle class="crest-ring crest-ring-outer" cx="200" cy="200" r="184" />
           <circle class="crest-ring crest-ring-inner" cx="200" cy="200" r="172" />
           <path class="crest-roof" d="M125 132 200 78l75 54H125Z" />
@@ -39,19 +75,19 @@
             d="m116 238 52-61 44 61h-96l52-61 35 3 81 58-72-2-28-59m-28 0-10-15m61 16 13-2 15 2"
           />
           <path class="crest-ground" d="M82 307h236" />
-          <text class="crest-inscription" x="200" y="334" text-anchor="middle" i18n>
-            Szlaki · ludzie · ognisko
+          <text class="crest-inscription" x="200" y="334" text-anchor="middle">
+            {{ 'home.crestInscription' | translate }}
           </text>
           <path class="crest-star" d="m200 51 3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z" />
         </svg>
-        <span class="crest-caption" i18n>Dobrze być na swoim szlaku</span>
+        <span class="crest-caption">{{ 'home.crestCaption' | translate }}</span>
       </div>
     </section>
 
     <footer class="trail-footer">
-      <span i18n>Trasy, które chce się pamiętać.</span>
+      <span>{{ 'home.footerLine' | translate }}</span>
       <span class="footer-mark"
-        ><i aria-hidden="true"></i><span i18n>Zjazd · Ognisko · Powtórka</span></span
+        ><i aria-hidden="true"></i><span>{{ 'home.footerMark' | translate }}</span></span
       >
     </footer>
 
@@ -59,11 +95,12 @@
       <div class="map-heading">
         <div>
           <p class="eyebrow">
-            <span class="eyebrow-line" aria-hidden="true"></span> Beskidzkie miejscówki
+            <span class="eyebrow-line" aria-hidden="true"></span>
+            {{ 'map.eyebrow' | translate }}
           </p>
-          <h2 id="map-title">Mapa szlaków</h2>
+          <h2 id="map-title">{{ 'map.title' | translate }}</h2>
         </div>
-        <p class="map-description">Odkryj miejsca i trasy polecane przez lokalnych riderów.</p>
+        <p class="map-description">{{ 'map.description' | translate }}</p>
       </div>
       <div class="map-frame">
         <app-map
@@ -71,10 +108,12 @@
           [isSidebarOpen]="isSidebarOpen()"
         ></app-map>
         @if (locationService.isLoading()) {
-          <div class="map-status" role="status">Ładowanie miejscówek…</div>
+          <div class="map-status" role="status">{{ 'map.loading' | translate }}</div>
         }
         @if (locationService.error()) {
-          <div class="map-status map-error" role="alert">{{ locationService.error() }}</div>
+          <div class="map-status map-error" role="alert">
+            {{ locationService.error() | translate }}
+          </div>
         }
       </div>
     </section>

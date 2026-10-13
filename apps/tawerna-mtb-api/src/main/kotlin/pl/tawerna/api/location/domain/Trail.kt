@@ -10,5 +10,9 @@ class Trail(
     val id: Long? = null,
     val name: String,
     val lengthInMeters: Int,
-    val difficulty: DifficultyLevel
+    val difficulty: DifficultyLevel,
+    val trailforksUrl: String? = null,
+    val youtubeVideoUrl: String? = null,
+    val description: String? = null,
+    val imageUrl: String? = null
 )

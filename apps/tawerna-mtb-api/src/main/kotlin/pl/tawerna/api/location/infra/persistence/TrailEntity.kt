@@ -23,7 +23,19 @@ class TrailEntity(
     @Column(nullable = false)
     val difficulty: DifficultyLevel,
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id")
-    var location: LocationEntity? = null
+    @Column(name = "trailforks_url")
+    val trailforksUrl: String? = null,
+
+    @Column(name = "youtube_video_url")
+    val youtubeVideoUrl: String? = null,
+
+    @Column(columnDefinition = "TEXT")
+    val description: String? = null,
+
+    @Column(name = "image_url")
+    val imageUrl: String? = null,
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "location_id", nullable = false)
+    var location: LocationEntity
 )

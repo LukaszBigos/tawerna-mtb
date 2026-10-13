@@ -1,8 +1,10 @@
 import { Component, input, output } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
+  imports: [TranslatePipe],
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {
@@ -12,4 +14,5 @@ export class SidebarComponent {
   // Emitting events up to the parent component
   toggleRequested = output<void>();
   closeRequested = output<void>();
+  addRequested = output<void>();
 }

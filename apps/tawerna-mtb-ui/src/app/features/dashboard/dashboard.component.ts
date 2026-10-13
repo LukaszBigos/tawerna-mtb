@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { LocationService } from '../../core/services/location.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { MapComponent } from './map.component';
@@ -6,7 +7,7 @@ import { MapComponent } from './map.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MapComponent, SidebarComponent],
+  imports: [MapComponent, SidebarComponent, TranslatePipe],
   template: `
     <div class="flex h-screen min-h-screen overflow-hidden bg-zinc-950 text-zinc-50">
       <app-sidebar
@@ -25,7 +26,7 @@ import { MapComponent } from './map.component';
               (click)="toggleSidebar()"
               class="absolute left-4 top-4 z-500 rounded-xl border border-zinc-700/70 bg-zinc-950/85 px-4 py-2 text-sm text-zinc-200 shadow-xl backdrop-blur-md transition hover:border-emerald-500/40 hover:text-emerald-400"
             >
-              🌲 Otwórz sidebar
+              🌲 {{ 'dashboard.openSidebar' | translate }}
             </button>
           }
 
@@ -37,7 +38,7 @@ import { MapComponent } from './map.component';
                 <div
                   class="h-10 w-10 animate-spin rounded-full border-2 border-emerald-500/20 border-t-emerald-400"
                 ></div>
-                <div class="text-xs tracking-[0.2em] text-zinc-400">ŁADOWANIE DANYCH</div>
+                <div class="text-xs tracking-[0.2em] text-zinc-400">{{ 'dashboard.loading' | translate }}</div>
               </div>
             </div>
           }
@@ -47,8 +48,8 @@ import { MapComponent } from './map.component';
               class="absolute inset-0 z-600 flex items-center justify-center bg-zinc-950 p-8 text-center text-zinc-300"
             >
               <div>
-                <p class="text-lg font-medium text-red-400">Nie udało się załadować mapy</p>
-                <p class="mt-2 text-sm text-zinc-500">{{ locationService.error() }}</p>
+                <p class="text-lg font-medium text-red-400">{{ 'dashboard.errorTitle' | translate }}</p>
+                <p class="mt-2 text-sm text-zinc-500">{{ locationService.error() | translate }}</p>
               </div>
             </div>
           }

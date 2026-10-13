@@ -1,0 +1,94 @@
+{
+  "brand": { "name": "Tawerna MTB" },
+  "language": { "label": "Language" },
+  "nav": {
+    "toggleMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "home": "Home",
+    "map": "Trail map",
+    "add": "Add new"
+  },
+  "sidebar": { "tagline": "A welcoming stop after a great ride", "region": "BESKIDS · POLAND" },
+  "home": {
+    "eyebrow": "A place for trail riders",
+    "title": "Tavern",
+    "titleAccent": "MTB",
+    "description": "First, the trail beneath your wheels. Then warm lights, a shared table, and stories from the ride.",
+    "signoffFirst": "The descent ends here.",
+    "signoffSecond": "The good stories are just beginning.",
+    "crestTitle": "Tawerna MTB emblem with a mountain trail and a bicycle",
+    "crestInscription": "Trails · people · campfire",
+    "crestCaption": "Good to be on your own trail",
+    "footerLine": "Trails worth remembering.",
+    "footerMark": "Ride · Campfire · Repeat"
+  },
+  "map": {
+    "eyebrow": "Beskid riding spots",
+    "title": "Trail map",
+    "description": "Discover places and trails recommended by local riders.",
+    "loading": "Loading riding spots…",
+    "layers": { "topographic": "OpenTopoMap (terrain)", "standard": "OpenStreetMap (standard)" },
+    "website": "Website",
+    "video": "Video",
+    "trails": "Trails",
+    "noTrails": "No trails available",
+    "type": {
+      "BIKE_PARK": "Bike park",
+      "MOUNTAIN_TRAIL": "Mountain trail",
+      "TRAIL_CENTER": "Trail center"
+    }
+  },
+  "difficulty": { "GREEN": "Green", "BLUE_FLOW": "Blue", "RED_TECH": "Red", "BLACK_DH": "Black" },
+  "dashboard": {
+    "openSidebar": "Open menu",
+    "loading": "LOADING DATA",
+    "errorTitle": "Could not load the map"
+  },
+  "add": {
+    "choiceTitle": "What would you like to add?",
+    "locationTitle": "New riding spot",
+    "trailTitle": "New trail",
+    "locationChoice": "Add a place",
+    "locationChoiceHint": "A mountain, range, or bike park",
+    "trailChoice": "Add a trail",
+    "trailChoiceHint": "Link it to a mountain or range",
+    "name": "Name",
+    "description": "Description",
+    "locationType": "Place type",
+    "mountain": "Mountain / range",
+    "bikePark": "Bike park",
+    "trailCenter": "Trail center",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "website": "Website",
+    "youtube": "YouTube",
+    "image": "Photo",
+    "parentLocation": "Mountain or range",
+    "chooseLocation": "Choose a place",
+    "trailName": "Trail name",
+    "length": "Length (metres)",
+    "difficulty": "Difficulty",
+    "trailforks": "Trailforks",
+    "optional": "optional",
+    "back": "Back",
+    "close": "Close",
+    "saving": "Saving…",
+    "addLocation": "Add place",
+    "addTrail": "Add trail",
+    "noLocations": "Add a mountain or range first. Every trail must belong to a place.",
+    "placeholder": {
+      "locationName": "e.g. Radziejowa Range",
+      "locationDescription": "Briefly describe the place and its trails",
+      "url": "https://",
+      "trailName": "e.g. Wielki Rogacz",
+      "trailforks": "https://www.trailforks.com/…",
+      "youtube": "https://youtu.be/…",
+      "image": "https://…"
+    }
+  },
+  "errors": {
+    "loadLocations": "Could not load riding spots.",
+    "saveLocation": "Could not save the place. Check the details and try again.",
+    "saveTrail": "Could not save the trail. Check the details and try again."
+  }
+}

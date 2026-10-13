@@ -10,4 +10,12 @@ class LocationApplicationService(
     fun getAllLocations(): List<Location> {
         return locationRepository.findAll()
     }
+
+    fun createLocation(location: Location): Location {
+        return locationRepository.save(location)
+    }
+
+    fun addTrailToLocation(locationId: Long, trail: Trail): Location? {
+        return locationRepository.addTrail(locationId, trail)
+    }
 }
