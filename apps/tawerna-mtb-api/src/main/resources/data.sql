@@ -1,11 +1,11 @@
 -- Clean up existing data to prevent primary key collisions on restart
 TRUNCATE TABLE trails CASCADE;
-TRUNCATE TABLE bike_parks CASCADE;
+TRUNCATE TABLE mtb_locations CASCADE;
 
 -- ==========================================
 -- 1. INSERT BIKE PARKS (ID: 1-10)
 -- ==========================================
-INSERT INTO bike_parks (id, name, description, latitude, longitude, type, youtube_video_url, image_url, website_url)
+INSERT INTO mtb_locations (id, name, description, latitude, longitude, type, youtube_video_url, image_url, website_url)
 VALUES 
 (1, 'Bike Park Kasina', 'Najwiekszy park rowerowy w Malopolsce, zlokalizowany w Kasinie Wielkiej. Swietne trasy flow i sekcje zjazdowe.', 49.7145, 20.1660, 'BIKE_PARK', 'https://youtube.com', 'https://unsplash.com', 'https://bikeparkkasina.pl'),
 (2, 'Szczyrk Enduro Trails by TREK', 'Kompleks jednokierunkowych sciezek w Szczyrku. Swietnie wyprofilowane trasy z ulatwieniami w postaci wyciagow.', 49.6961, 18.9907, 'BIKE_PARK', 'https://youtube.com', 'https://unsplash.com', 'https://szczyrkowski.pl'),
@@ -21,7 +21,7 @@ VALUES
 -- ==========================================
 -- 2. INSERT TRAIL CENTERS (ID: 11-20)
 -- ==========================================
-INSERT INTO bike_parks (id, name, description, latitude, longitude, type, youtube_video_url, image_url, website_url)
+INSERT INTO mtb_locations (id, name, description, latitude, longitude, type, youtube_video_url, image_url, website_url)
 VALUES 
 (11, 'Singletrack Glacensis', 'Najwieksza siec sciezke typu singletrack w Europie, łącząca kilkanascie petli na ziemi klodzkiej.', 50.4341, 16.8312, 'TRAIL_CENTER', 'https://youtube.com', 'https://unsplash.com', 'https://singletrackglacensis.eu'),
 (12, 'Enduro Trails Bielsko-Biala', 'Mityczne sciezki na Koziej Gorze i Szyndzielni. Swietna infrastruktura i trasy o kazdym poziomie trudnosci.', 49.7824, 19.0215, 'TRAIL_CENTER', 'https://youtube.com', 'https://unsplash.com', 'https://endurotrails.pl'),
@@ -37,7 +37,7 @@ VALUES
 -- ==========================================
 -- 3. INSERT MOUNTAIN TRAILS (ID: 21-30)
 -- ==========================================
-INSERT INTO bike_parks (id, name, description, latitude, longitude, type, youtube_video_url, image_url, website_url)
+INSERT INTO mtb_locations (id, name, description, latitude, longitude, type, youtube_video_url, image_url, website_url)
 VALUES 
 (21, 'Szlak na Turbacz', 'Tradycyjny, wymagajacy szlak gorski w Gorcach. Duze kamienie, bloto i spektakularne panoramy Tatr.', 49.5421, 20.1141, 'MOUNTAIN_TRAIL', 'https://youtube.com', 'https://unsplash.com', 'https://gorczanskipark.pl'),
 (22, 'Masyw Snieznika Klasyk', 'Wysokogorska wyprawa na Snieznik. Trudny technicznie podjazd i wymagajacy, gruzowiskowy zjazd.', 50.2071, 16.8482, 'MOUNTAIN_TRAIL', 'https://youtube.com', 'https://unsplash.com', 'https://snieznik.pl'),
@@ -51,9 +51,14 @@ VALUES
 (30, 'Radziejowa Epic', 'Wymagajacy szlak w Beskidzie Sadeckim. Wysokie przewyzszenia i techniczna sekcja zjazdowa do Szczawnicy.', 49.4485, 20.6031, 'MOUNTAIN_TRAIL', 'https://youtube.com', 'https://unsplash.com', 'https://piwniczna.pl');
 
 -- ==========================================
-
+INSERT INTO mtb_locations
+    (id, name, description, latitude, longitude, type, youtube_video_url, image_url, website_url)
+VALUES
+    (31, 'Las Wolski', 'Las Wolski w Krakowie.', 50.054005, 19.8619787, 'TRAIL_CENTER',
+     'https://www.youtube.com/playlist?list=PLEGcz1V1bjl0', NULL,
+     'https://mynaszlaku.pl/las-w-wolskim-w-krakowie/');
 -- ==========================================
-UPDATE bike_parks
+UPDATE mtb_locations
 SET image_url = CASE type
 	WHEN 'BIKE_PARK' THEN 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=960&q=80'
 	WHEN 'TRAIL_CENTER' THEN 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=960&q=80'
@@ -136,5 +141,5 @@ INSERT INTO trails (id, name, length_in_meters, difficulty, location_id) VALUES 
 -- ==========================================
 -- 5. RESET DATABASE SEQUENCES
 -- ==========================================
-ALTER SEQUENCE bike_parks_id_seq RESTART WITH 31;
+ALTER SEQUENCE mtb_locations_id_seq RESTART WITH 32;
 ALTER SEQUENCE trails_id_seq RESTART WITH 38;

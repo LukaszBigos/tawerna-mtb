@@ -16,6 +16,31 @@ export interface Trail {
   name: string;
   lengthInMeters: number;
   difficulty: DifficultyLevel;
+  trailforksUrl: string | null;
+  youtubeVideoUrl: string | null;
+  description: string | null;
+  imageUrl: string | null;
+}
+
+export interface CreateLocationRequest {
+  name: string;
+  description: string;
+  latitude: number;
+  longitude: number;
+  type: PlaceType;
+  youtubeVideoUrl?: string | null;
+  imageUrl?: string | null;
+  websiteUrl?: string | null;
+}
+
+export interface CreateTrailRequest {
+  name: string;
+  lengthInMeters: number;
+  difficulty: DifficultyLevel;
+  trailforksUrl?: string | null;
+  youtubeVideoUrl?: string | null;
+  description?: string | null;
+  imageUrl?: string | null;
 }
 
 export interface Location {

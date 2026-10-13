@@ -6,6 +6,8 @@ package pl.tawerna.api.location.domain
  */
 interface LocationRepository {
     fun findAll(): List<Location>
+    fun findById(id: Long): Location?
     fun save(location: Location): Location
+    fun addTrail(locationId: Long, trail: Trail): Location?
     fun count(): Long
 }

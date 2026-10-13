@@ -4,11 +4,11 @@ import jakarta.persistence.*
 import pl.tawerna.api.location.domain.PlaceType
 
 /**
- * Technical database entity representing the 'bike_parks' table in PostgreSQL.
+ * Technical database entity representing the 'mtb_locations' table in PostgreSQL.
  * This is the main table for our MTB locations aggregate.
  */
 @Entity
-@Table(name = "bike_parks")
+@Table(name = "mtb_locations")
 class LocationEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

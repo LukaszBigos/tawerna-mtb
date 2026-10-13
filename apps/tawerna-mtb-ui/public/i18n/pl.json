@@ -1,0 +1,99 @@
+{
+  "brand": { "name": "Tawerna MTB" },
+  "language": { "label": "Język" },
+  "nav": {
+    "toggleMenu": "Otwórz menu",
+    "closeMenu": "Zamknij menu",
+    "home": "Strona główna",
+    "map": "Mapa miejscówek",
+    "add": "Dodaj nową"
+  },
+  "sidebar": { "tagline": "Przystań po dobrym zjeździe", "region": "BESKIDY · POLSKA" },
+  "home": {
+    "eyebrow": "Miejsce dla ludzi szlaku",
+    "title": "Tawerna",
+    "titleAccent": "MTB",
+    "description": "Najpierw ścieżka pod kołami. Potem ciepłe światło, wspólny stół i historie z trasy.",
+    "signoffFirst": "Tu kończy się zjazd.",
+    "signoffSecond": "Dobra opowieść dopiero się zaczyna.",
+    "crestTitle": "Emblemat Tawerny MTB z górskim szlakiem i rowerem",
+    "crestInscription": "Szlaki · ludzie · ognisko",
+    "crestCaption": "Dobrze być na swoim szlaku",
+    "footerLine": "Trasy, które chce się pamiętać.",
+    "footerMark": "Zjazd · Ognisko · Powtórka"
+  },
+  "map": {
+    "eyebrow": "Beskidzkie miejscówki",
+    "title": "Mapa szlaków",
+    "description": "Odkryj miejsca i trasy polecane przez lokalnych riderów.",
+    "loading": "Ładowanie miejscówek…",
+    "layers": { "topographic": "OpenTopoMap (teren)", "standard": "OpenStreetMap (standard)" },
+    "website": "Strona WWW",
+    "video": "Wideo",
+    "trails": "Trasy",
+    "noTrails": "Brak tras",
+    "type": {
+      "BIKE_PARK": "Bike park",
+      "MOUNTAIN_TRAIL": "Górski szlak",
+      "TRAIL_CENTER": "Trail center"
+    }
+  },
+  "difficulty": {
+    "GREEN": "Zielona",
+    "BLUE_FLOW": "Niebieska",
+    "RED_TECH": "Czerwona",
+    "BLACK_DH": "Czarna"
+  },
+  "dashboard": {
+    "openSidebar": "Otwórz menu",
+    "loading": "ŁADOWANIE DANYCH",
+    "errorTitle": "Nie udało się załadować mapy"
+  },
+  "add": {
+    "choiceTitle": "Co chcesz dodać?",
+    "locationTitle": "Nowa miejscówka",
+    "trailTitle": "Nowa trasa",
+    "locationChoice": "Dodaj miejscówkę",
+    "locationChoiceHint": "Górę, pasmo lub bike park",
+    "trailChoice": "Dodaj trasę",
+    "trailChoiceHint": "Przypisz ją do góry lub pasma",
+    "name": "Nazwa",
+    "description": "Opis",
+    "locationType": "Typ miejscówki",
+    "mountain": "Góra / pasmo",
+    "bikePark": "Bike park",
+    "trailCenter": "Trail center",
+    "latitude": "Szerokość geogr.",
+    "longitude": "Długość geogr.",
+    "website": "Strona WWW",
+    "youtube": "YouTube",
+    "image": "Zdjęcie",
+    "parentLocation": "Góra lub pasmo",
+    "chooseLocation": "Wybierz miejscówkę",
+    "trailName": "Nazwa trasy",
+    "length": "Długość (metry)",
+    "difficulty": "Trudność",
+    "trailforks": "Trailforks",
+    "optional": "opcjonalnie",
+    "back": "Wstecz",
+    "close": "Zamknij",
+    "saving": "Zapisywanie…",
+    "addLocation": "Dodaj miejscówkę",
+    "addTrail": "Dodaj trasę",
+    "noLocations": "Najpierw dodaj górę lub pasmo. Każda trasa musi mieć przypisaną miejscówkę.",
+    "placeholder": {
+      "locationName": "np. Pasmo Radziejowej",
+      "locationDescription": "Krótko opisz miejscówkę i dostępne trasy",
+      "url": "https://",
+      "trailName": "np. Wielki Rogacz",
+      "trailforks": "https://www.trailforks.com/…",
+      "youtube": "https://youtu.be/…",
+      "image": "https://…"
+    }
+  },
+  "errors": {
+    "loadLocations": "Nie udało się załadować miejscówek.",
+    "saveLocation": "Nie udało się zapisać miejscówki. Sprawdź dane i spróbuj ponownie.",
+    "saveTrail": "Nie udało się zapisać trasy. Sprawdź dane i spróbuj ponownie."
+  }
+}

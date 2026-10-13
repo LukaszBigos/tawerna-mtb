@@ -14,10 +14,20 @@ class LocationRepositoryImpl(
         return jpaLocationRepository.findAll().map { it.toDomain() }
     }
 
+    override fun findById(id: Long): Location? {
+        return jpaLocationRepository.findById(id).orElse(null)?.toDomain()
+    }
+
     override fun save(location: Location): Location {
         val entity = location.toEntity()
         val savedEntity = jpaLocationRepository.save(entity)
         return savedEntity.toDomain()
+    }
+
+    override fun addTrail(locationId: Long, trail: Trail): Location? {
+        val location = jpaLocationRepository.findById(locationId).orElse(null) ?: return null
+        location.addTrail(trail.toEntity(location))
+        return jpaLocationRepository.save(location).toDomain()
     }
 
     override fun count(): Long {
@@ -45,7 +55,11 @@ fun TrailEntity.toDomain(): Trail {
         id = this.id,
         name = this.name,
         lengthInMeters = this.lengthInMeters,
-        difficulty = this.difficulty
+        difficulty = this.difficulty,
+        trailforksUrl = this.trailforksUrl,
+        youtubeVideoUrl = this.youtubeVideoUrl,
+        description = this.description,
+        imageUrl = this.imageUrl
     )
 }
 
@@ -78,6 +92,10 @@ fun Trail.toEntity(parentLocation: LocationEntity): TrailEntity {
         name = this.name,
         lengthInMeters = this.lengthInMeters,
         difficulty = this.difficulty,
+        trailforksUrl = this.trailforksUrl,
+        youtubeVideoUrl = this.youtubeVideoUrl,
+        description = this.description,
+        imageUrl = this.imageUrl,
         location = parentLocation
     )
 }
