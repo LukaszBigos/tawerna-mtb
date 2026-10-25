@@ -1,0 +1,69 @@
+<div class="flex min-h-0 flex-1 flex-col">
+  <div
+    class="flex items-center justify-between border-b border-[#304338]/10 px-4 py-3 text-sm sm:px-5"
+  >
+    <h3 class="font-medium text-[#304338]">{{ 'dashboard.results' | translate }}</h3>
+    <span class="text-[#78877a]"
+      >{{ places().length }} {{ 'dashboard.places' | translate }}</span
+    >
+  </div>
+  <div class="min-h-0 flex-1 overflow-y-auto px-3 pb-3 sm:px-4">
+    @if (isLoading()) {
+      <p class="p-4 text-sm text-[#718073]">{{ 'dashboard.loading' | translate }}</p>
+    } @else if (places().length === 0) {
+      <div
+        class="rounded-lg border border-dashed border-[#bdcbbb] px-4 py-8 text-center text-[#304338]"
+      >
+        <p class="text-sm font-medium">{{ 'dashboard.noResults' | translate }}</p>
+        <p class="mt-1 text-xs text-[#718073]">{{ 'dashboard.adjustFilters' | translate }}</p>
+      </div>
+    } @else {
+      <ul class="space-y-2">
+        @for (place of places(); track place.location.id) {
+          <li>
+            <button
+              type="button"
+              class="w-full cursor-pointer rounded-lg border p-3 text-left text-[#304338] transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9784b]"
+              [ngClass]="
+                selectedLocationId() === place.location.id
+                  ? 'border-0 border-l-4 border-[#6d8969] bg-[#c2d3c0] shadow-sm'
+                  : 'border-[#bdcbbb] bg-[#d9e3d7] hover:-translate-y-px hover:border-[#c9784b]/60 hover:bg-[#e4e3d9]'
+              "
+              [attr.aria-pressed]="selectedLocationId() === place.location.id"
+              (click)="locationSelected.emit(place.location)"
+            >
+              <span class="flex items-start justify-between gap-3">
+                <span class="min-w-0">
+                  <span class="block truncate text-base font-semibold text-[#304338]">{{
+                    place.location.name
+                  }}</span>
+                  <span class="mt-1 block text-sm text-[#78877a]">{{
+                    'map.type.' + place.location.type | translate
+                  }}</span>
+                </span>
+                @if (place.distanceKm !== null) {
+                  <span class="shrink-0 text-sm tabular-nums text-[#657f60]"
+                    >{{ place.distanceKm | number: '1.0-0' }} km</span
+                  >
+                }
+              </span>
+              <span class="mt-2 flex flex-wrap gap-1">
+                @for (difficulty of place.difficulties; track difficulty) {
+                  <span
+                    class="rounded border border-[#becdbb] bg-[#dce6d9] px-1.5 py-0.5 text-xs text-[#5d7358]"
+                    >{{ 'difficulty.' + difficulty | translate }}</span
+                >
+                }
+                @if (place.location.trails.length === 0) {
+                  <span class="text-[10px] text-[#78877a]">{{
+                    'map.noTrails' | translate
+                  }}</span>
+                }
+              </span>
+            </button>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</div>

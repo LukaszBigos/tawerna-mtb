@@ -1,0 +1,81 @@
+<div class="flex h-full w-full min-h-0 overflow-hidden bg-[#d0dccf] text-[#304338]">
+  <aside
+    [class]="
+      mobileView() === 'map'
+        ? 'hidden h-full min-h-0 w-full flex-col border-r-0 border-[#bdcbbb] bg-[#d0dccf] md:flex md:w-97.5 md:border-r'
+        : 'flex h-full min-h-0 w-full flex-col border-r-0 border-[#bdcbbb] bg-[#d0dccf] md:w-97.5 md:border-r'
+    "
+  >
+    <app-dashboard-filters
+      [searchTerm]="searchTerm()"
+      [selectedTypes]="selectedTypes()"
+      [selectedDifficulties]="selectedDifficulties()"
+      [coordinatesAvailable]="userCoordinates() !== null"
+      [radiusKm]="radiusKm()"
+      [isLocating]="isLocating()"
+      [locationError]="locationError()"
+      [mobileView]="mobileView()"
+      (searchChanged)="searchTerm.set($event)"
+      (typeToggled)="toggleType($event)"
+      (difficultyToggled)="toggleDifficulty($event)"
+      (locateRequested)="locateMe()"
+      (radiusChanged)="radiusKm.set($event)"
+      (clearRequested)="clearFilters()"
+      (mobileViewChanged)="mobileView.set($event)"
+    ></app-dashboard-filters>
+    <app-location-list
+      [places]="filteredLocations()"
+      [isLoading]="locationService.isLoading()"
+      [selectedLocationId]="locationService.selectedLocation()?.id ?? null"
+      (locationSelected)="selectLocation($event)"
+    ></app-location-list>
+  </aside>
+
+  <main
+    [class]="
+      mobileView() === 'map'
+        ? 'relative flex min-h-0 min-w-0 flex-1 overflow-hidden bg-[#dfe8dd] p-2 md:p-3'
+        : 'relative hidden min-h-0 min-w-0 flex-1 overflow-hidden bg-[#dfe8dd] p-2 md:flex md:p-3'
+    "
+  >
+    <button
+      type="button"
+      class="absolute bottom-4 left-4 z-1000 cursor-pointer rounded-lg border border-[#bdcbbb] bg-[#e9efe6]/95 px-3 py-2 text-xs font-medium text-[#304338] shadow-lg backdrop-blur md:hidden"
+      [class.hidden]="mobileView() !== 'map'"
+      (click)="mobileView.set('list')"
+    >
+      {{ 'dashboard.listView' | translate }}
+    </button>
+    <div
+      class="relative h-full min-h-0 min-w-0 flex-1 overflow-hidden rounded-lg border border-[#bdcbbb] bg-[#d9e4d8] shadow-lg"
+    >
+      @if (locationService.isLoading()) {
+        <div
+          class="absolute inset-0 z-600 flex items-center justify-center gap-3 bg-[#14231a]/80 text-[#f3e8d2] backdrop-blur-md"
+        >
+          <div
+            class="h-8 w-8 animate-spin rounded-full border-2 border-[#9eaa78]/30 border-t-[#d58b53]"
+          ></div>
+          <div class="text-xs tracking-[0.16em] text-[#f3e8d2]">
+            {{ 'dashboard.loading' | translate }}
+          </div>
+        </div>
+      }
+
+      @if (locationService.error()) {
+        <div
+          class="absolute inset-0 z-600 flex items-center justify-center bg-[#14231a]/90 p-8 text-center text-[#f3e8d2]"
+        >
+          <div>
+            <p class="text-lg font-medium text-[#e08b72]">
+              {{ 'dashboard.errorTitle' | translate }}
+            </p>
+            <p class="mt-2 text-sm text-[#c7bba1]">{{ locationService.error() | translate }}</p>
+          </div>
+        </div>
+      }
+
+      <app-map [locations]="visibleLocations()"></app-map>
+    </div>
+  </main>
+</div>

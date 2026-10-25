@@ -1,0 +1,31 @@
+<section>
+  <div class="mb-2 flex items-center justify-between">
+    <h3 class="text-[11px] font-semibold uppercase tracking-wider text-[#68786a]">
+      {{ 'dashboard.placeType' | translate }}
+    </h3>
+    <button
+      type="button"
+      class="cursor-pointer text-[11px] text-[#7e8b7e] hover:text-[#a75d3d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9784b]"
+      (click)="clearRequested.emit()"
+    >
+      {{ 'dashboard.clear' | translate }}
+    </button>
+  </div>
+  <div class="flex flex-wrap gap-1.5">
+    @for (type of placeTypes; track type) {
+      <button
+        type="button"
+        class="cursor-pointer rounded-md border px-2.5 py-1.5 text-xs transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9784b]"
+        [ngClass]="
+          selectedTypes().includes(type)
+            ? 'border-[#789174] bg-[#c8d7c5] text-[#344b38]'
+            : 'border-[#b8c6b5] bg-[#e1e9de] text-[#657568] hover:border-[#c9784b] hover:bg-[#e4e3d9] hover:text-[#304338]'
+        "
+        [attr.aria-pressed]="selectedTypes().includes(type)"
+        (click)="typeToggled.emit(type)"
+      >
+        {{ 'map.type.' + type | translate }}
+      </button>
+    }
+  </div>
+</section>

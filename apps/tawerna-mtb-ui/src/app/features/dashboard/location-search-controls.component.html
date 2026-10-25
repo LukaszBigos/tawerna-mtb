@@ -1,0 +1,47 @@
+<label
+  class="mt-4 flex h-10 items-center gap-2 rounded-lg border border-[#b8c6b5] bg-[#e9efe6] px-3 focus-within:border-[#c9784b] focus-within:ring-2 focus-within:ring-[#c9784b]/15"
+>
+  <span aria-hidden="true" class="text-[#789174]">⌕</span>
+  <input
+    type="search"
+    class="min-w-0 flex-1 bg-transparent text-sm text-[#304338] outline-none placeholder:text-[#879487]"
+    [placeholder]="'dashboard.search' | translate"
+    [value]="searchTerm()"
+    (input)="searchChanged.emit($any($event.target).value)"
+  />
+</label>
+
+<div class="mt-3 flex items-center gap-2">
+  <button
+    type="button"
+    (click)="locateRequested.emit()"
+    [disabled]="isLocating()"
+    class="inline-flex h-9 flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#c9784b] px-3 text-xs font-semibold text-[#fffaf1] transition hover:bg-[#b96940] disabled:cursor-wait disabled:opacity-60"
+  >
+    <span aria-hidden="true">◎</span>
+    {{ (isLocating() ? 'dashboard.locating' : 'dashboard.nearMe') | translate }}
+  </button>
+  <div class="relative min-w-0 flex-1">
+    <select
+      class="h-9 w-full appearance-none cursor-pointer rounded-lg border border-[#b8c6b5] bg-[#e9efe6] py-0 pl-2 pr-9 text-xs text-[#304338] focus-visible:outline-2 focus-visible:outline-[#c9784b] disabled:cursor-not-allowed disabled:opacity-50"
+      [value]="radiusKm() ?? ''"
+      [disabled]="!coordinatesAvailable()"
+      [attr.aria-label]="'dashboard.distance' | translate"
+      (change)="onRadiusChange($event)"
+    >
+      <option value="">{{ 'dashboard.anyDistance' | translate }}</option>
+      <option value="25">{{ 'dashboard.withinKm' | translate: { km: 25 } }}</option>
+      <option value="50">{{ 'dashboard.withinKm' | translate: { km: 50 } }}</option>
+      <option value="100">{{ 'dashboard.withinKm' | translate: { km: 100 } }}</option>
+    </select>
+    <span
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-y-0 right-3 flex h-9 -translate-y-0.5 items-center text-sm leading-none text-[#718073]"
+      >⌄</span
+    >
+  </div>
+</div>
+
+@if (locationError()) {
+  <p role="status" class="mt-2 text-xs text-[#a65339]">{{ locationError() | translate }}</p>
+}
