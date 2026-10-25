@@ -533,8 +533,8 @@ h1 {
   }
 
   .map-frame {
-    height: 62svh;
-    min-height: 360px;
+    height: 72svh;
+    min-height: 520px;
   }
 }
 

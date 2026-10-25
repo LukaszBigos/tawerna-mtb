@@ -1,0 +1,63 @@
+<header class="shrink-0 border-b border-[#304338]/15 bg-[#d0dccf] px-4 pb-4 pt-4 sm:px-5">
+  <div class="flex items-start justify-between gap-2">
+    <!-- <div>
+      <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#71896c]">
+        {{ 'dashboard.eyebrow' | translate }}
+      </p>
+      <h2 class="mt-1 font-serif text-2xl text-[#304338]">
+        {{ 'dashboard.title' | translate }}
+      </h2>
+    </div> -->
+    <div class="flex rounded-lg border border-[#b8c6b5] bg-[#d0dccf]/75 p-0.5 md:hidden">
+      <button
+        type="button"
+        class="cursor-pointer rounded-md px-2 py-1.5 text-[11px]"
+        [ngClass]="mobileView() === 'list' ? 'bg-[#c8d7c5] text-[#263a2c]' : 'text-[#718073]'"
+        [attr.aria-pressed]="mobileView() === 'list'"
+        (click)="mobileViewChanged.emit('list')"
+      >
+        {{ 'dashboard.listView' | translate }}
+      </button>
+      <button
+        type="button"
+        class="cursor-pointer rounded-md px-2 py-1.5 text-[11px]"
+        [ngClass]="mobileView() === 'map' ? 'bg-[#c8d7c5] text-[#263a2c]' : 'text-[#718073]'"
+        [attr.aria-pressed]="mobileView() === 'map'"
+        (click)="mobileViewChanged.emit('map')"
+      >
+        {{ 'dashboard.mapView' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <app-location-search-controls
+    [searchTerm]="searchTerm()"
+    [coordinatesAvailable]="coordinatesAvailable()"
+    [radiusKm]="radiusKm()"
+    [isLocating]="isLocating()"
+    [locationError]="locationError()"
+    (searchChanged)="searchChanged.emit($event)"
+    (locateRequested)="locateRequested.emit()"
+    (radiusChanged)="radiusChanged.emit($event)"
+  ></app-location-search-controls>
+
+  <app-filters-toggle-button
+    [open]="filtersOpen()"
+    [selectedCount]="selectedTypes().length + selectedDifficulties().length"
+    (toggle)="filtersOpen.update((open) => !open)"
+  ></app-filters-toggle-button>
+
+  @defer (when filtersOpen()) {
+    <div class="mt-3" [class.hidden]="!filtersOpen()">
+      <app-place-type-filter
+        [selectedTypes]="selectedTypes()"
+        (typeToggled)="typeToggled.emit($event)"
+        (clearRequested)="clearRequested.emit()"
+      ></app-place-type-filter>
+      <app-trail-difficulty-filter
+        [selectedDifficulties]="selectedDifficulties()"
+        (difficultyToggled)="difficultyToggled.emit($event)"
+      ></app-trail-difficulty-filter>
+    </div>
+  }
+</header>

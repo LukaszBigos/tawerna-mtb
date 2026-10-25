@@ -47,7 +47,27 @@
   "dashboard": {
     "openSidebar": "Otwórz menu",
     "loading": "ŁADOWANIE DANYCH",
-    "errorTitle": "Nie udało się załadować mapy"
+    "errorTitle": "Nie udało się załadować mapy",
+    "eyebrow": "Odkrywaj Beskidy",
+    "title": "Znajdź trasę",
+    "listView": "Lista",
+    "mapView": "Mapa",
+    "filters": "Filtry",
+    "search": "Szukaj miejscówki…",
+    "nearMe": "W pobliżu mnie",
+    "locating": "Ustalam lokalizację…",
+    "distance": "Maksymalna odległość",
+    "anyDistance": "Dowolna odległość",
+    "withinKm": "Do {{km}} km",
+    "placeType": "Typ miejsca",
+    "difficulty": "Trudność tras",
+    "clear": "Wyczyść",
+    "results": "Miejscówki",
+    "places": "wyników",
+    "noResults": "Brak pasujących miejsc",
+    "adjustFilters": "Zmień filtry lub wyszukiwaną frazę.",
+    "geolocationUnavailable": "Ta przeglądarka nie udostępnia lokalizacji.",
+    "geolocationDenied": "Nie udało się pobrać lokalizacji. Sprawdź uprawnienia przeglądarki."
   },
   "add": {
     "choiceTitle": "Co chcesz dodać?",

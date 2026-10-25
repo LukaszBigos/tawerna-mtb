@@ -42,7 +42,27 @@
   "dashboard": {
     "openSidebar": "Open menu",
     "loading": "LOADING DATA",
-    "errorTitle": "Could not load the map"
+    "errorTitle": "Could not load the map",
+    "eyebrow": "Explore the Beskids",
+    "title": "Find a trail",
+    "listView": "List",
+    "mapView": "Map",
+    "filters": "Filters",
+    "search": "Search riding spots…",
+    "nearMe": "Near me",
+    "locating": "Finding your location…",
+    "distance": "Maximum distance",
+    "anyDistance": "Any distance",
+    "withinKm": "Within {{km}} km",
+    "placeType": "Place type",
+    "difficulty": "Trail difficulty",
+    "clear": "Clear",
+    "results": "Riding spots",
+    "places": "results",
+    "noResults": "No matching places",
+    "adjustFilters": "Adjust the filters or search term.",
+    "geolocationUnavailable": "This browser does not support location access.",
+    "geolocationDenied": "Could not get your location. Check your browser permissions."
   },
   "add": {
     "choiceTitle": "What would you like to add?",

@@ -1,5 +1,4 @@
 import { Component, effect, ElementRef, inject, input, OnDestroy, viewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,64 +12,8 @@ import {
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [CommonModule],
-  template: `<div #mapContainer class="h-full w-full"></div>`,
-  styles: [
-    `
-      :host {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-
-      :host ::ng-deep {
-        .leaflet-control-layers {
-          border: 1px solid rgba(16, 185, 129, 0.25) !important;
-          border-radius: 6px !important;
-          background: rgba(16, 32, 25, 0.94) !important;
-          color: #e7eee8 !important;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28) !important;
-        }
-
-        .leaflet-control-layers-expanded {
-          padding: 8px 10px;
-        }
-
-        .leaflet-control-layers label {
-          color: #e7eee8;
-          font-size: 12px;
-        }
-
-        .location-cluster {
-          border: 0;
-          background: transparent;
-        }
-
-        .leaflet-control-zoom {
-          border: none !important;
-        }
-
-        .leaflet-control-zoom-in,
-        .leaflet-control-zoom-out {
-          border: 1px solid #27272a !important;
-          background-color: #18181b !important;
-          color: #f4f4f5 !important;
-        }
-
-        .leaflet-popup-content-wrapper {
-          border: 1px solid rgba(16, 185, 129, 0.2);
-          border-radius: 0.5rem;
-          background: rgba(24, 24, 27, 0.9) !important;
-          color: #f4f4f5 !important;
-          backdrop-filter: blur(8px);
-        }
-
-        .leaflet-popup-tip {
-          background: rgba(24, 24, 27, 0.9) !important;
-        }
-      }
-    `,
-  ],
+  host: { class: 'block h-full w-full' },
+  templateUrl: './map.component.html',
 })
 export class MapComponent implements OnDestroy {
   private readonly locationService = inject(LocationService);
@@ -80,6 +23,9 @@ export class MapComponent implements OnDestroy {
   private topographicLayer!: L.TileLayer;
   private standardLayer!: L.TileLayer;
   private layerControl?: L.Control.Layers;
+  private resizeObserver?: ResizeObserver;
+  private readonly markersByLocation = new Map<number, L.Marker>();
+  private pendingFocusLocationId?: number;
   private readonly markerLayer = L.markerClusterGroup({
     chunkedLoading: true,
     maxClusterRadius: 48,
@@ -87,18 +33,20 @@ export class MapComponent implements OnDestroy {
     spiderfyOnMaxZoom: true,
     iconCreateFunction: (cluster) =>
       L.divIcon({
-        className: 'location-cluster',
-        html: `<span style="display:grid;width:42px;height:42px;place-items:center;border:2px solid #f3e8d2;border-radius:50%;background:#176b50;color:#fff;font:700 13px/1 sans-serif;box-shadow:0 2px 9px rgba(0,0,0,.45)">${cluster.getChildCount()}</span>`,
+        className: 'location-cluster !border-0 !bg-transparent',
+        html: `<span class="grid h-10.5 w-10.5 place-items-center rounded-full border-2 border-[#f3e8d2] bg-[#176b50] text-[13px] font-bold leading-none text-white shadow-lg">${cluster.getChildCount()}</span>`,
         iconSize: [42, 42],
         iconAnchor: [21, 21],
       }),
   });
 
   public readonly locations = input.required<Location[]>();
-  public readonly isSidebarOpen = input<boolean>(true);
 
   constructor() {
-    effect(() => this.initMap(this.mapContainer().nativeElement));
+    effect(() => {
+      const container = this.mapContainer().nativeElement;
+      if (!this.map) this.initMap(container);
+    });
     effect(() => {
       this.translate.currentLang();
       this.updateMarkers(this.locations());
@@ -106,9 +54,22 @@ export class MapComponent implements OnDestroy {
     });
 
     effect(() => {
-      this.isSidebarOpen();
-      window.setTimeout(() => this.map?.invalidateSize(), 300);
+      const selectedLocation = this.locationService.selectedLocation();
+      if (selectedLocation) {
+        this.focusLocation(selectedLocation.id);
+      }
     });
+  }
+
+  public focusLocation(locationId: number): void {
+    const marker = this.markersByLocation.get(locationId);
+    if (!marker || !this.map) {
+      this.pendingFocusLocationId = locationId;
+      return;
+    }
+    this.pendingFocusLocationId = undefined;
+    this.map.flyTo(marker.getLatLng(), Math.max(this.map.getZoom(), 11), { duration: 0.5 });
+    setTimeout(() => marker.openPopup(), 600);
   }
 
   private initMap(container: HTMLDivElement): void {
@@ -117,6 +78,12 @@ export class MapComponent implements OnDestroy {
       zoom: 8,
       zoomControl: true,
     });
+    this.resizeObserver = new ResizeObserver(() => {
+      if (container.clientWidth > 0 && container.clientHeight > 0) {
+        this.map.invalidateSize({ animate: false });
+      }
+    });
+    this.resizeObserver.observe(container);
 
     this.topographicLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors, SRTM | &copy; OpenTopoMap',
@@ -127,8 +94,9 @@ export class MapComponent implements OnDestroy {
       maxZoom: 19,
     });
 
-    this.topographicLayer.addTo(this.map);
+    this.standardLayer.addTo(this.map);
     this.updateLayerControl();
+    this.applyZoomControlUtilities();
 
     this.markerLayer.addTo(this.map);
   }
@@ -139,13 +107,19 @@ export class MapComponent implements OnDestroy {
     }
 
     this.markerLayer.clearLayers();
+    this.markersByLocation.clear();
 
     locations.forEach((location) => {
       const typeConfig = PLACE_TYPE_CONFIG[location.type];
       const typeLabel = this.translate.instant(`map.type.${location.type}`) as string;
+      const markerColorClass = {
+        BIKE_PARK: 'border-emerald-500',
+        MOUNTAIN_TRAIL: 'border-orange-500',
+        TRAIL_CENTER: 'border-sky-400',
+      }[location.type];
       const markerIcon = L.divIcon({
-        className: 'location-marker-icon',
-        html: `<span style="display:grid;width:40px;height:40px;place-items:center;box-sizing:border-box;border:3px solid ${typeConfig.markerColor};border-radius:50%;background:#102019;box-shadow:0 2px 8px rgba(0,0,0,.6);font-size:22px;line-height:1">${typeConfig.markerIcon}</span>`,
+        className: 'location-marker-icon !border-0 !bg-transparent',
+        html: `<span class="grid h-10 w-10 place-items-center rounded-full border-[3px] ${markerColorClass} bg-[#102019] text-[22px] leading-none shadow-lg">${typeConfig.markerIcon}</span>`,
         iconSize: [40, 40],
         iconAnchor: [20, 20],
       });
@@ -174,7 +148,7 @@ export class MapComponent implements OnDestroy {
           loading="lazy"
           decoding="async"
           onerror="this.onerror=null;this.src='/tavern-shelter.jpg'"
-          style="display:block;width:100%;height:156px;margin:0 0 10px;border-radius:8px 8px 4px 4px;object-fit:cover;object-position:center 45%;background:#182820"
+          class="mb-2 block h-39 w-full rounded-t-lg rounded-b-sm bg-[#182820] object-cover object-[center_45%]"
         />
       `;
 
@@ -237,9 +211,17 @@ export class MapComponent implements OnDestroy {
         maxHeight: Math.max(180, this.map.getSize().y - 48),
         maxWidth: 320,
       });
+      marker.on('popupopen', (event) => this.applyPopupUtilities(event.popup));
       marker.on('click', () => this.locationService.selectLocation(location));
       this.markerLayer.addLayer(marker);
+      this.markersByLocation.set(location.id, marker);
     });
+
+    const selected = this.locationService.selectedLocation();
+    const focusId = selected?.id ?? this.pendingFocusLocationId;
+    if (focusId !== undefined && this.markersByLocation.has(focusId) && this.map) {
+      this.focusLocation(focusId);
+    }
   }
 
   private updateLayerControl(): void {
@@ -249,16 +231,57 @@ export class MapComponent implements OnDestroy {
     this.layerControl = L.control
       .layers(
         {
-          [this.translate.instant('map.layers.topographic') as string]: this.topographicLayer,
           [this.translate.instant('map.layers.standard') as string]: this.standardLayer,
+          [this.translate.instant('map.layers.topographic') as string]: this.topographicLayer,
         },
         undefined,
         { collapsed: true, position: 'topright' },
       )
       .addTo(this.map);
+    const layerContainer = this.layerControl?.getContainer();
+    layerContainer?.classList.add(
+      '!rounded-xl',
+      '!bg-[#102019]/70',
+      '!text-[#e7eee8]',
+      '!shadow-sm',
+      'backdrop-blur-md',
+      '!border-0',
+      '!outline-none',
+    );
+    layerContainer?.querySelectorAll('input[type="radio"]').forEach((input) => {
+      input.classList.add('accent-emerald-500');
+    });
+    layerContainer?.querySelectorAll('label').forEach((label) => {
+      label.classList.add('!text-[#e7eee8]', '!text-xs', 'cursor-pointer');
+    });
+  }
+
+  private applyZoomControlUtilities(): void {
+    this.map
+      .getContainer()
+      .querySelectorAll('.leaflet-control-zoom-in, .leaflet-control-zoom-out')
+      .forEach((control) => {
+        control.classList.add('!border', '!border-[#27272a]', '!bg-[#18181b]', '!text-[#f4f4f5]');
+      });
+  }
+
+  private applyPopupUtilities(popup: L.Popup): void {
+    const popupElement = popup.getElement();
+    popupElement
+      ?.querySelector('.leaflet-popup-content-wrapper')
+      ?.classList.add(
+        '!border',
+        '!border-emerald-500/20',
+        '!rounded-lg',
+        '!bg-[#18181b]/90',
+        '!text-[#f4f4f5]',
+        '!backdrop-blur-md',
+      );
+    popupElement?.querySelector('.leaflet-popup-tip')?.classList.add('!bg-[#18181b]/90');
   }
 
   ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
     this.map?.remove();
   }
 }

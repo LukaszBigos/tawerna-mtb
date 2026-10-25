@@ -3,13 +3,13 @@ import { Title } from '@angular/platform-browser';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LocationService } from './core/services/location.service';
 import { AddEntryDialogComponent } from './features/add-entry/add-entry-dialog.component';
-import { MapComponent } from './features/dashboard/map.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { SidebarComponent } from './features/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AddEntryDialogComponent, MapComponent, SidebarComponent, TranslatePipe],
+  imports: [AddEntryDialogComponent, DashboardComponent, SidebarComponent, TranslatePipe],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
