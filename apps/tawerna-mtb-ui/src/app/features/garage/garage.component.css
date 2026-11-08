@@ -1,0 +1,218 @@
+:host {
+  display: block;
+}
+
+.garage-section {
+  padding-block: 48px 64px;
+}
+
+.garage-heading {
+  max-width: 640px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.garage-heading .eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgb(199 187 161);
+  margin: 0 0 12px;
+  display: block;
+}
+
+.garage-heading h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: var(--paper);
+  line-height: 1.2;
+}
+
+.garage-heading .garage-description {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgb(243 232 210 / 85%);
+  margin: 0;
+}
+
+.garage-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.garage-card {
+  display: flex;
+  flex-direction: column;
+  background: rgb(25 34 28 / 60%);
+  border: 1px solid rgb(213 139 83 / 25%);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.garage-card:hover {
+  transform: translateY(-4px);
+  border-color: rgb(213 139 83 / 60%);
+  box-shadow: 0 12px 32px rgb(5 8 6 / 50%);
+}
+
+.garage-card-image {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: rgb(10 20 15 / 40%);
+}
+
+.garage-card-image img {
+  width: 100%;
+  height: 100%;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  object-fit: contain;
+  display: block;
+}
+
+.garage-card-category {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgb(243 232 210);
+  background: rgb(19 31 24 / 70%);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid rgb(213 139 83 / 35%);
+  backdrop-filter: blur(4px);
+}
+
+.garage-card-body {
+  padding: 18px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.garage-card-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--paper);
+  line-height: 1.25;
+}
+
+.garage-card-meta {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgb(158 170 120 / 80%);
+  margin: 0;
+}
+
+.garage-card-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgb(243 232 210 / 80%);
+  margin: 0;
+  flex: 1;
+}
+
+.garage-card-specs-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgb(213 139 83);
+  margin: 0 0 8px;
+}
+
+.garage-card-specs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.garage-card-spec {
+  font-size: 11px;
+  color: rgb(243 232 210 / 70%);
+  background: rgb(10 20 15 / 30%);
+  border: 1px solid rgb(243 232 210 / 12%);
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.garage-loading,
+.garage-error,
+.garage-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 32px 16px;
+  color: rgb(243 232 210 / 70%);
+  font-size: 14px;
+  margin: 0;
+}
+
+.garage-error {
+  color: rgb(248 113 113);
+}
+
+.garage-card-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 64px;
+  color: rgb(243 232 210 / 30%);
+}
+
+@media (min-width: 768px) {
+  .garage-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+
+  .garage-heading h2 {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .garage-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .garage-card-image {
+    height: 240px;
+  }
+}
+
+@media (max-width: 430px) {
+  .garage-section {
+    padding-block: 36px 48px;
+  }
+
+  .garage-heading h2 {
+    font-size: 30px;
+  }
+
+  .garage-card-image {
+    height: 240px;
+  }
+}

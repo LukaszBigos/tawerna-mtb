@@ -139,7 +139,22 @@ INSERT INTO trails (id, name, length_in_meters, difficulty, location_id) VALUES 
 INSERT INTO trails (id, name, length_in_meters, difficulty, location_id) VALUES (37, 'Wielki Rogacz Down', 6100, 'RED_TECH', 30);
 
 -- ==========================================
+-- 3. INSERT GARAGE BIKES
+-- ==========================================
+TRUNCATE TABLE garage_bikes CASCADE;
+
+INSERT INTO garage_bikes (brand, model, year, wheel_size, rear_wheel_size, frame_size, category, description, specs, image_url)
+VALUES
+('Giant', 'Trance 4', 2016, 27.5, NULL, 'M', 'Trail', 'Moj pierwszy full - nieskomplikowany, ale wierny towarzysz pierwszych beskidzkich zjazdow.', ARRAY['Rama: Aluxx aluminium, 120 mm skoku', 'Amortyzator: Rockshox Recon', 'Napęd: Shimano Deore 10', 'Hamulce: Shimano MT400'], '/garage-bikes/giant-trance-4.jpg'),
+('Kross', 'Moon 2', 2018, 29, NULL, 'L', 'Enduro', 'Maszyna z większym skokiem i bardziej zjazdową geometrią. Kupiony od zawodnika Enduro', ARRAY['Rama: Aluminiowa, 100 mm skoku', 'Widelec: SR Suntour XCE', 'Napęd: Shimano Altus 9', 'Hamulce: Tarczowe hydrauliczne'], '/garage-bikes/kross-moon-2.jpg'),
+('Giant', 'Trance 29 2', 2021, 29, NULL, 'L', 'Trail', 'Nowocześniejszy Trance na 29 calach - lepiej toczy sie po korzeniach i kamieniach Beskidow.', ARRAY['Rama: ALUXX SL aluminium', 'Amortyzator: Rockshox Deluxe Select+', 'Napęd: Shimano Deore 12', 'Hamulce: Shimano MT420'], '/garage-bikes/giant-trance-29-2.jpg'),
+('Marin', 'Alpine Trail E2', 2022, 29, 27.5, 'M', 'Enduro', 'Endurowka zbudowana pod strome zjazdy i techniczne zjazdy walkowymi trasami.', ARRAY['Rama: Aluminium, 150 mm skoku', 'Amortyzator: Fox Performance', 'Napęd: Shimano Deore 12', 'Hamulce: Shimano MT420'], '/garage-bikes/marin-alpine-trail-e2.jpg'),
+('Santa Cruz', '5010 v5 R Build', 2023, 29, 27.5, 'M', 'Trail', 'Zwiny, abażdżowy sprzet na szybkie zjazdy i skaczace linie - ulubiony do flow trail.', ARRAY['Rama: Karbon C', 'Amortyzator: Fox Float DPX2', 'Napęd: SRAM GX Eagle', 'Hamulce: SRAM Guide T'], '/garage-bikes/santa-cruz-5010.jpg'),
+('Pivot', 'Shuttle SL SLX / XT', 2024, 29, NULL, 'M', 'E-MTB', 'Lekki e-MTB, który pozwala pokonac wiecej szlakow w jednym dniu bez rezygnacji z zabawy.', ARRAY['Rama: Karbon, pelny amortyzator', 'Silnik: Fazua Ride 60', 'Napęd: Shimano SLX / XT', 'Hamulce: Shimano Deore / XT'], '/garage-bikes/pivot-shuttle-sl.jpg');
+
+-- ==========================================
 -- 5. RESET DATABASE SEQUENCES
 -- ==========================================
 ALTER SEQUENCE mtb_locations_id_seq RESTART WITH 32;
 ALTER SEQUENCE trails_id_seq RESTART WITH 38;
+ALTER SEQUENCE garage_bikes_id_seq RESTART WITH 7;

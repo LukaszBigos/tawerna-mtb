@@ -114,6 +114,16 @@
           </a>
         </li>
         <li>
+          <a
+            href="#garage-section"
+            class="flex items-center gap-4 rounded-lg px-4 py-3 text-zinc-300 border-l-3 border-transparent text-sm font-normal hover:bg-emerald-500/15 hover:text-zinc-50 transition-all duration-200"
+            (click)="closeRequested.emit()"
+          >
+            <span class="text-lg opacity-80">🚵‍♂️</span>
+            <span>{{ 'nav.garage' | translate }}</span>
+          </a>
+        </li>
+        <li>
           <button
             type="button"
             class="flex w-full items-center gap-4 rounded-lg border-l-3 border-transparent px-4 py-3 text-left text-sm font-normal text-zinc-300 transition-all duration-200 hover:bg-emerald-500/15 hover:text-zinc-50"

@@ -6,7 +6,19 @@
     "closeMenu": "Close menu",
     "home": "Home",
     "map": "Trail map",
-    "add": "Add new"
+    "add": "Add new",
+    "garage": "My Garage"
+  },
+  "garage": {
+    "eyebrow": "Founder's personal bikes",
+    "title": "Admin Garage",
+    "description": "Overview of the bikes I ride and have tested on Beskid trails.",
+    "bikesList": "Bikes in the garage",
+    "mulletWheelSize": "{{front}}″ front / {{rear}}″ rear",
+    "specs": "Specs",
+    "loading": "Loading bikes…",
+    "error": "Failed to load bikes.",
+    "empty": "No bikes in the garage."
   },
   "sidebar": { "tagline": "A welcoming stop after a great ride", "region": "BESKIDS · POLAND" },
   "home": {
@@ -109,6 +121,7 @@
   "errors": {
     "loadLocations": "Could not load riding spots.",
     "saveLocation": "Could not save the place. Check the details and try again.",
-    "saveTrail": "Could not save the trail. Check the details and try again."
+    "saveTrail": "Could not save the trail. Check the details and try again.",
+    "loadBikes": "Failed to load bikes."
   }
 }
