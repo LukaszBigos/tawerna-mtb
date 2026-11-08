@@ -6,7 +6,19 @@
     "closeMenu": "Zamknij menu",
     "home": "Strona główna",
     "map": "Mapa miejscówek",
-    "add": "Dodaj nową"
+    "add": "Dodaj nową",
+    "garage": "Mój garage"
+  },
+  "garage": {
+    "eyebrow": "Osobiste rowery założyciela",
+    "title": "Admin Garage",
+    "description": "Przegląd rowerów, na których jeżdżę i które testowałem na beskidzkich szlakach.",
+    "bikesList": "Lista rowerów w garage",
+    "mulletWheelSize": "{{front}}″ przód / {{rear}}″ tył",
+    "specs": "Specyfikacja",
+    "loading": "Ładowanie rowerów…",
+    "error": "Nie udało się wczytać rowerów.",
+    "empty": "Brak rowerów w garage."
   },
   "sidebar": { "tagline": "Przystań po dobrym zjeździe", "region": "BESKIDY · POLSKA" },
   "home": {
@@ -114,6 +126,7 @@
   "errors": {
     "loadLocations": "Nie udało się załadować miejscówek.",
     "saveLocation": "Nie udało się zapisać miejscówki. Sprawdź dane i spróbuj ponownie.",
-    "saveTrail": "Nie udało się zapisać trasy. Sprawdź dane i spróbuj ponownie."
+    "saveTrail": "Nie udało się zapisać trasy. Sprawdź dane i spróbuj ponownie.",
+    "loadBikes": "Nie udało się wczytać rowerów."
   }
 }

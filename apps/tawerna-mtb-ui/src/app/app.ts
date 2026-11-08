@@ -4,12 +4,19 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LocationService } from './core/services/location.service';
 import { AddEntryDialogComponent } from './features/add-entry/add-entry-dialog.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { GarageComponent } from './features/garage/garage.component';
 import { SidebarComponent } from './features/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AddEntryDialogComponent, DashboardComponent, SidebarComponent, TranslatePipe],
+  imports: [
+    AddEntryDialogComponent,
+    DashboardComponent,
+    GarageComponent,
+    SidebarComponent,
+    TranslatePipe,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

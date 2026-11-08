@@ -1,0 +1,54 @@
+<section id="garage-section" class="garage-section" aria-labelledby="garage-title">
+  <div class="garage-heading">
+    <p class="eyebrow">{{ 'garage.eyebrow' | translate }}</p>
+    <h2 id="garage-title">{{ 'garage.title' | translate }}</h2>
+    <p class="garage-description">{{ 'garage.description' | translate }}</p>
+  </div>
+
+  @if (isLoading()) {
+    <p class="garage-loading">{{ 'garage.loading' | translate }}</p>
+  } @else if (error()) {
+    <p class="garage-error">{{ error() }}</p>
+  } @else {
+    <ul class="garage-grid" aria-label="{{ 'garage.bikesList' | translate }}">
+      @for (bike of bikes(); track bike.id) {
+        <li class="garage-card">
+          <div class="garage-card-image">
+            @if (bike.imageUrl && !unavailableImageIds().has(bike.id)) {
+              <img
+                [src]="bike.imageUrl"
+                [alt]="bike.brand + ' ' + bike.model + ' ' + bike.year"
+                loading="lazy"
+                (error)="markImageUnavailable(bike.id)"
+              />
+            } @else {
+              <span class="garage-card-placeholder" aria-hidden="true">🚲</span>
+            }
+            <span class="garage-card-category">{{ bike.category }}</span>
+          </div>
+          <div class="garage-card-body">
+            <h3 class="garage-card-title">{{ bike.brand }} {{ bike.model }}</h3>
+            <p class="garage-card-meta">
+              {{ bike.year }} ·
+              @if (bike.rearWheelSize) {
+                {{ 'garage.mulletWheelSize' | translate: { front: bike.wheelSize, rear: bike.rearWheelSize } }}
+              } @else {
+                {{ bike.wheelSize ?? '—' }}″
+              }
+            </p>
+            <p class="garage-card-description">{{ bike.description }}</p>
+            <h4 class="garage-card-specs-title">{{ 'garage.specs' | translate }}</h4>
+            <ul class="garage-card-specs">
+              @for (spec of bike.specs; track spec) {
+                <li class="garage-card-spec">{{ spec }}</li>
+              }
+            </ul>
+          </div>
+        </li>
+      }
+      @empty {
+        <p class="garage-empty">{{ 'garage.empty' | translate }}</p>
+      }
+    </ul>
+  }
+</section>
